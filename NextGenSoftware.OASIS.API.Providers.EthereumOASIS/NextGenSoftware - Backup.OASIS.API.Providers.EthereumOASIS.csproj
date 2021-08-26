@@ -7,4 +7,8 @@
     <ItemGroup>
       <PackageReference Include="Nethereum.Web3" Version="4.0.5" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Infrastrucutre\Factory\ConfigurationProvider" />
+    </ItemGroup>
 </Project>
