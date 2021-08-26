@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastrucutre.Factory.ConfigurationProvider
+namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Factory.ConfigurationProvider
 {
     public interface IConfigurationProvider
     {

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastrucutre.Factory.ConfigurationProvider
+namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Factory.ConfigurationProvider
 {
     public class LocalStorageConfigurationProvider : IConfigurationProvider
     {

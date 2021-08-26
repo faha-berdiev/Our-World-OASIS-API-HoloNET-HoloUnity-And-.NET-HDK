@@ -1,4 +1,4 @@
-﻿namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastrucutre.Factory.ConfigurationProvider
+﻿namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Factory.ConfigurationProvider
 {
     public static class ConfigurationFactory
     {
