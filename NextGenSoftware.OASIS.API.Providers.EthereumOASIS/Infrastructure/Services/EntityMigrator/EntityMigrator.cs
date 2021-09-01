@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Enums;
 using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Factory.ConfigurationProvider;
 using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.Common;
-using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.EntityMigrator;
+using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.Entity;
 
 namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Services.EntityMigrator
 {
@@ -25,7 +25,7 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Servi
             var response = new Response<T>();
             try
             {
-                var key = await _configuration.GetKey("secretKey");
+                var key = await _configuration.GetKey("EncryptSecretKey");
                 var decryptContent = await DecryptString(key, entityContent);
                 response.Payload = JsonConvert.DeserializeObject<T>(decryptContent);
                 return response;
@@ -43,7 +43,7 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Servi
             var response = new Response<EntityContent>();
             try
             {
-                var key = await _configuration.GetKey("secretKey");
+                var key = await _configuration.GetKey("EncryptSecretKey");
                 var entityContent = new EntityContent
                 {
                     Content = await EncryptString(key, JsonConvert.SerializeObject(entity))

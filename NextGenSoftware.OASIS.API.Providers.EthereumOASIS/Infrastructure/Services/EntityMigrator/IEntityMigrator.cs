@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.Common;
-using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.EntityMigrator;
+using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.Entity;
 
 namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Services.EntityMigrator
 {
