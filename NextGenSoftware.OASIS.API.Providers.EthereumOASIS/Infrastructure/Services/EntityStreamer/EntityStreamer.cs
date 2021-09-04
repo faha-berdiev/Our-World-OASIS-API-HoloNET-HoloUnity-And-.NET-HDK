@@ -38,6 +38,12 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Servi
                     RequestUri = new Uri(url)
                 };
                 var httpResponse = await _httpClient.SendAsync(httpRequest);
+                if (!httpResponse.IsSuccessStatusCode)
+                {
+                    response.Message = httpResponse.ReasonPhrase;
+                    response.Status = ResponseStatus.Failed;
+                    return response;
+                }
                 response.Payload = new EntityContent()
                 {
                     EntityName = reference.Reference,
@@ -81,6 +87,12 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Servi
                     RequestUri = new Uri(_httpClient.BaseAddress + "bzz")
                 };
                 var httpResponse = await _httpClient.SendAsync(httpRequest);
+                if (!httpResponse.IsSuccessStatusCode)
+                {
+                    response.Message = httpResponse.ReasonPhrase;
+                    response.Status = ResponseStatus.Failed;
+                    return response;
+                }
                 var responseContent = await httpResponse.Content.ReadAsStringAsync();
                 response.Payload =
                     JsonConvert.DeserializeObject<EntityReference>(responseContent);
