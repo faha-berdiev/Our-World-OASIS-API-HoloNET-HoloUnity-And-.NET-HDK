@@ -15,9 +15,9 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Servi
     {
         private readonly IConfigurationProvider _configuration;
 
-        public EntityMigrator()
+        public EntityMigrator(IConfigurationProvider configuration)
         {
-            _configuration = ConfigurationFactory.GetLocalStorageConfigurationProvider();
+            _configuration = configuration;
         }
 
         public async Task<Response<T>> GetEntity(string entityContent)

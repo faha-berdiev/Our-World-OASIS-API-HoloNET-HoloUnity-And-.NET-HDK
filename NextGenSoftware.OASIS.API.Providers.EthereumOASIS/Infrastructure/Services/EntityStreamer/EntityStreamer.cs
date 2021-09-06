@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Enums;
 using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Factory.ConfigurationProvider;
+using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Services.HttpClientHandler;
 using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.Common;
 using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.Entity;
 
@@ -13,13 +14,13 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Servi
 {
     public sealed class EntityStreamer : IEntityStreamer
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientHandler _httpClient;
         private readonly IConfigurationProvider _configuration;
         
-        public EntityStreamer()
+        public EntityStreamer(IHttpClientHandler httpClient, IConfigurationProvider configuration)
         {
-            _httpClient = new HttpClient();
-            _configuration = ConfigurationFactory.GetLocalStorageConfigurationProvider();
+            _httpClient = httpClient;
+            _configuration = configuration;
         }
         
         public async Task<Response<EntityContent>> Download(EntityReference reference)
@@ -28,10 +29,7 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Servi
             try
             {
                 var baseAddress = await _configuration.GetKey("SwarmHostAddress");
-                _httpClient.BaseAddress = new Uri(baseAddress);
-
-                var url = $"{_httpClient.BaseAddress}bzz/{reference.Reference}";
-                
+                var url = $"{baseAddress}bzz/{reference.Reference}";
                 var httpRequest = new HttpRequestMessage()
                 {
                     Method = HttpMethod.Get,
@@ -78,13 +76,12 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Servi
                         }
                     };
                 
-                _httpClient.BaseAddress = new Uri(baseAddress);
                 var httpRequest = new HttpRequestMessage()
                 {
                     Content = new MultipartContent(),
                     Headers = { {"Swarm-Postage-Batch-Id", swarmBatchId} },
                     Method = HttpMethod.Post,
-                    RequestUri = new Uri(_httpClient.BaseAddress + "bzz")
+                    RequestUri = new Uri(baseAddress + "bzz")
                 };
                 var httpResponse = await _httpClient.SendAsync(httpRequest);
                 if (!httpResponse.IsSuccessStatusCode)

@@ -9,21 +9,17 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Servi
     {
         private readonly IConfigurationProvider _configurationProvider;
         private Web3 _web3;
-        public AccountService()
+        public AccountService(IConfigurationProvider configurationProvider)
         {
-            _configurationProvider = ConfigurationFactory.GetLocalStorageConfigurationProvider();
-            _web3 = new Web3();
+            _configurationProvider = configurationProvider;
         }
 
         public async Task<Nethereum.Web3.Accounts.Account> CreateAccount<T>(T entity)
         {
-            var address = await _configurationProvider.GetKey("NethereumAddress");
-            var privateKey = await _configurationProvider.GetKey("NethereumPrivateKey");
-            var nethereumHostUri = await _configurationProvider.GetKey("NethereumHostUri");
-            var nethereumAbi = await _configurationProvider.GetKey("NethereumABI");
+            await InitializeWeb3();
             
-            var account = new Nethereum.Web3.Accounts.Account(privateKey);
-            _web3 = new Web3(account, nethereumHostUri);
+            var address = await _configurationProvider.GetKey("NethereumAddress");
+            var nethereumAbi = await _configurationProvider.GetKey("NethereumABI");
             
             var oasisContract = _web3.Eth.GetContract(nethereumAbi, address);
             var newAccountFunction = oasisContract.GetFunction("createAccount");
@@ -33,18 +29,30 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Servi
 
         public async Task<Nethereum.Web3.Accounts.Account> CreateAccount(string password)
         {
+            await InitializeWeb3();
             var accountContent = await _web3.Personal.NewAccount.SendRequestAsync(password);
             return new Nethereum.Web3.Accounts.Account(accountContent);
         }
 
         public async Task LockAccount(string password)
         {
+            await InitializeWeb3();
             await _web3.Personal.LockAccount.SendRequestAsync(password);
         }
 
         public async Task UnLockAccount(EthCoinBase coinBase, string password)
         {
+            await InitializeWeb3();
             await _web3.Personal.UnlockAccount.SendRequestAsync(coinBase, password);
+        }
+
+        private async Task InitializeWeb3()
+        {
+            var privateKey = await _configurationProvider.GetKey("NethereumPrivateKey");
+            var nethereumHostUri = await _configurationProvider.GetKey("NethereumHostUri");
+            var account = new Nethereum.Web3.Accounts.Account(privateKey);
+            
+            _web3 = new Web3(account, nethereumHostUri);
         }
     }
 }

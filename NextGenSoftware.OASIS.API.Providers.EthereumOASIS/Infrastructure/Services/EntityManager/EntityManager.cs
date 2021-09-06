@@ -12,10 +12,10 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Servi
         private readonly IEntityStreamer _entityStreamer;
         private readonly IEntityMigrator<T> _entityMigrator;
 
-        public EntityManager()
+        public EntityManager(IEntityStreamer entityStreamer, IEntityMigrator<T> entityMigrator)
         {
-            _entityStreamer = new EntityStreamer.EntityStreamer();
-            _entityMigrator = new EntityMigrator<T>();
+            _entityStreamer = entityStreamer;
+            _entityMigrator = entityMigrator;
         }
         
         public async Task<T> Get(EntityReference reference)
