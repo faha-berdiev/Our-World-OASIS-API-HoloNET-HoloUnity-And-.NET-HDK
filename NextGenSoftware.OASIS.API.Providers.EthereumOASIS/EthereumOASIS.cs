@@ -6,7 +6,6 @@ using NextGenSoftware.OASIS.API.Core;
 using NextGenSoftware.OASIS.API.Core.Interfaces;
 using NextGenSoftware.OASIS.API.Core.Enums;
 using NextGenSoftware.OASIS.API.Core.Helpers;
-using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repository;
 using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repository.AvatarRepository;
 using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repository.HolonRepository;
 using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.Entity;
@@ -15,15 +14,15 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS
 {
     public class EthereumOASIS : OASISStorageBase, IOASISNET, IOASISStorage
     {
-        private readonly AvatarRepository _avatarRepository;
-        private readonly HolonRepository _holonRepository;
+        private readonly IAvatarRepository _avatarRepository;
+        private readonly IHolonRepository _holonRepository;
         private readonly IMapper _mapper;
         
-        public EthereumOASIS(IMapper mapper)
+        public EthereumOASIS(IMapper mapper, IAvatarRepository avatarRepository, IHolonRepository holonRepository)
         {
             _mapper = mapper;
-            _avatarRepository = new AvatarRepository();
-            _holonRepository = new HolonRepository();
+            _avatarRepository = avatarRepository;
+            _holonRepository = holonRepository;
         }
         
         public override async Task<IEnumerable<IAvatar>> LoadAllAvatarsAsync()

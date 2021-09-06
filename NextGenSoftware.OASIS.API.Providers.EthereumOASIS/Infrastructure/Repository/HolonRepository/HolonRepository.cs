@@ -5,7 +5,7 @@ using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.Entity;
 
 namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repository.HolonRepository
 {
-    public class HolonRepository : IRepository<HolonEntity>, ISwarmRepository<HolonEntity>
+    public class HolonRepository : IHolonRepository
     {
         public async Task Create(HolonEntity entity)
         {
