@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.Entity;
 
-namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repository
+namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repository.AvatarRepository
 {
-    public class AvatarRepository : IRepository<AvatarEntity>, ISwarmRepository<AvatarEntity>
+    public class AvatarRepository : IAvatarRepository
     {
         public async Task Create(AvatarEntity entity)
         {
