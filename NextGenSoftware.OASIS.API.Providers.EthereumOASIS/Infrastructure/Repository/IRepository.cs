@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Nethereum.ABI.FunctionEncoding;
 
 namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repository
 {

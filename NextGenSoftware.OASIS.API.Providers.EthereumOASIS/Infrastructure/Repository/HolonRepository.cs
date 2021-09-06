@@ -5,7 +5,7 @@ using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.Entity;
 
 namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repository
 {
-    public class HolonRepository : IRepository<HolonEntity>
+    public class HolonRepository : IRepository<HolonEntity>, ISwarmRepository<HolonEntity>
     {
         public async Task Create(HolonEntity entity)
         {
@@ -38,6 +38,16 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repos
         }
 
         public async Task Delete(string providerKey)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<HolonEntity> Get(EntityReference reference)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task Delete(EntityReference reference)
         {
             throw new NotImplementedException();
         }

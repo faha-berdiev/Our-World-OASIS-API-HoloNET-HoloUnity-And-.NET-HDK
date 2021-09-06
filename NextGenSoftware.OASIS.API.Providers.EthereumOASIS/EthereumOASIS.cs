@@ -11,7 +11,7 @@ using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.Entity;
 
 namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS
 {
-    public class EthereumOASIS : OASISStorageBase, IOASISNET
+    public class EthereumOASIS : OASISStorageBase, IOASISNET, IOASISStorage
     {
         private readonly IRepository<AvatarEntity> _avatarRepository;
         private readonly IRepository<HolonEntity> _holonRepository;

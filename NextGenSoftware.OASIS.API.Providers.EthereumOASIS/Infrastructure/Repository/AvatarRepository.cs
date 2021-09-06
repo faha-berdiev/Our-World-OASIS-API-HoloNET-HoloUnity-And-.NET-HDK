@@ -5,7 +5,7 @@ using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.Entity;
 
 namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repository
 {
-    public class AvatarRepository : IRepository<AvatarEntity>
+    public class AvatarRepository : IRepository<AvatarEntity>, ISwarmRepository<AvatarEntity>
     {
         public async Task Create(AvatarEntity entity)
         {
@@ -38,6 +38,16 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repos
         }
 
         public async Task Delete(string providerKey)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<AvatarEntity> Get(EntityReference reference)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task Delete(EntityReference reference)
         {
             throw new NotImplementedException();
         }
