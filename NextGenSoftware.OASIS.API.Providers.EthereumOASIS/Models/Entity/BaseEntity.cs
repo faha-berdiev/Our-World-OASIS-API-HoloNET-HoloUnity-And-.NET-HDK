@@ -4,5 +4,6 @@
     {
         public bool Removed { get; set; }
         public string ContractContent { get; set; }
+        public string LastReference { get; set; }
     }
 }

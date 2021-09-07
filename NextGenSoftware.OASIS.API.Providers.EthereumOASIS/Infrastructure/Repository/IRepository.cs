@@ -11,11 +11,9 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repos
         Task Update(T entity);
         
         Task<T> Get(Guid id);
-        Task<T> Get(string providerKey);
 
         Task<IEnumerable<T>> GetAll();
         
         Task Delete(Guid id);
-        Task Delete(string providerKey);
     }
 }

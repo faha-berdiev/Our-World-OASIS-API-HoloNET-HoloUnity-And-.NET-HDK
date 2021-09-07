@@ -12,13 +12,13 @@ using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.Entity;
 
 namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS
 {
-    public class EthereumOASIS : OASISStorageBase, IOASISNET, IOASISStorage
+    public class EthereumOasis : OASISStorageBase, IOASISNET, IOASISStorage
     {
         private readonly IAvatarRepository _avatarRepository;
         private readonly IHolonRepository _holonRepository;
         private readonly IMapper _mapper;
         
-        public EthereumOASIS(IMapper mapper, IAvatarRepository avatarRepository, IHolonRepository holonRepository)
+        public EthereumOasis(IMapper mapper, IAvatarRepository avatarRepository, IHolonRepository holonRepository)
         {
             _mapper = mapper;
             _avatarRepository = avatarRepository;
@@ -49,27 +49,38 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS
 
         public override bool DeleteAvatar(Guid id, bool softDelete = true)
         {
-            throw new NotImplementedException();
+            Task.Run(async () =>
+            {
+                await _avatarRepository.Delete(id);
+            });
+            return true;
         }
 
         public override async Task<bool> DeleteAvatarAsync(Guid id, bool softDelete = true)
         {
-            throw new NotImplementedException();
+            await _avatarRepository.Delete(id);
+            return true;
         }
 
         public override bool DeleteAvatar(string providerKey, bool softDelete = true)
         {
-            throw new NotImplementedException();
+            Task.Run(async () =>
+            {
+                await _avatarRepository.Delete(new EntityReference(providerKey));
+            });
+            return true;
         }
 
         public override async Task<bool> DeleteAvatarAsync(string providerKey, bool softDelete = true)
         {
-            throw new NotImplementedException();
+            await _avatarRepository.Delete(new EntityReference(providerKey));
+            return true;        
         }
 
         public override async Task<bool> DeleteHolonAsync(string providerKey, bool softDelete = true)
         {
-            throw new NotImplementedException();
+            await _holonRepository.Delete(new EntityReference(providerKey));
+            return true;
         }
 
         public override async Task<ISearchResults> SearchAsync(ISearchParams searchParams)
@@ -79,42 +90,66 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS
 
         public override async Task<IEnumerable<IHolon>> SaveHolonsAsync(IEnumerable<IHolon> holons)
         {
-            throw new NotImplementedException();
+            foreach (var holon in holons)
+            {
+                var holonEntity = _mapper.Map<HolonEntity>(holon);
+                await _holonRepository.Create(holonEntity);
+            }
+            return holons;
         }
 
         public override bool DeleteHolon(Guid id, bool softDelete = true)
         {
-            throw new NotImplementedException();
+            Task.Run(async () =>
+            {
+                await _holonRepository.Delete(id);
+            });
+            return true;
         }
 
         public override async Task<bool> DeleteHolonAsync(Guid id, bool softDelete = true)
         {
-            throw new NotImplementedException();
+            await _holonRepository.Delete(id);
+            return true;
         }
 
         public override bool DeleteHolon(string providerKey, bool softDelete = true)
         {
-            throw new NotImplementedException();
+            Task.Run(async () =>
+            {
+                await _holonRepository.Delete(new EntityReference(providerKey));
+            });
+            return true;
         }
 
         public override IHolon LoadHolon(Guid id)
         {
-            throw new NotImplementedException();
+            IHolon entity = null;
+            Task.Run(async () =>
+            {
+                entity = await _holonRepository.Get(id);
+            });
+            return entity;
         }
 
         public override async Task<IHolon> LoadHolonAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _holonRepository.Get(id);;
         }
 
         public override IHolon LoadHolon(string providerKey)
         {
-            throw new NotImplementedException();
+            IHolon entity = null;
+            Task.Run(async () =>
+            {
+                entity = await _holonRepository.Get(new EntityReference(providerKey));
+            });
+            return entity;
         }
 
         public override async Task<IHolon> LoadHolonAsync(string providerKey)
         {
-            throw new NotImplementedException();
+            return await _holonRepository.Get(new EntityReference(providerKey));
         }
 
         public override IEnumerable<IHolon> LoadHolonsForParent(Guid id, HolonType type = HolonType.All)
@@ -149,17 +184,32 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS
 
         public override IHolon SaveHolon(IHolon holon)
         {
-            throw new NotImplementedException();
+            Task.Run(async () =>
+            {
+                var holonEntity = _mapper.Map<HolonEntity>(holon);
+                await _holonRepository.Update(holonEntity);
+            });
+            return holon;
         }
 
         public override async Task<IHolon> SaveHolonAsync(IHolon holon)
         {
-            throw new NotImplementedException();
+            var holonEntity = _mapper.Map<HolonEntity>(holon);
+            await _holonRepository.Update(holonEntity);
+            return holon;
         }
 
         public override IEnumerable<IHolon> SaveHolons(IEnumerable<IHolon> holons)
         {
-            throw new NotImplementedException();
+            Task.Run(async () =>
+            {
+                foreach (var holon in holons)
+                {
+                    var holonEntity = _mapper.Map<HolonEntity>(holon);
+                    await _holonRepository.Update(holonEntity);   
+                }
+            });
+            return holons;
         }
 
         public override async Task<IAvatar> LoadAvatarAsync(string username, string password)
@@ -174,12 +224,17 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS
 
         public override async Task<IAvatar> LoadAvatarForProviderKeyAsync(string providerKey)
         {
-            throw new NotImplementedException();
+            return await _avatarRepository.Get(new EntityReference(providerKey));
         }
 
         public override IAvatar LoadAvatarForProviderKey(string providerKey)
         {
-            throw new NotImplementedException();
+            IAvatar avatar = null;
+            Task.Run(async () =>
+            {
+                avatar = await _avatarRepository.Get(new EntityReference(providerKey));
+            });
+            return avatar;
         }
 
         public override IAvatar LoadAvatar(string username, string password)
@@ -199,12 +254,17 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS
 
         public override async Task<IAvatar> LoadAvatarAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _avatarRepository.Get(id);
         }
 
         public override IAvatar LoadAvatar(Guid id)
         {
-            throw new NotImplementedException();
+            IAvatar avatar = null;
+            Task.Run(async () =>
+            {
+                avatar = await _avatarRepository.Get(id);
+            });
+            return avatar;
         }
 
         public IEnumerable<IPlayer> GetPlayersNearMe()

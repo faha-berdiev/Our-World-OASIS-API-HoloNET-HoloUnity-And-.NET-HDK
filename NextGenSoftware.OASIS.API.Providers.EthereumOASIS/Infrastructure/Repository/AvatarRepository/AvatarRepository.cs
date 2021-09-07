@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Services.EntityManager;
 using NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Models.Entity;
 
 namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repository.AvatarRepository
 {
     public class AvatarRepository : IAvatarRepository
     {
+        private readonly IEntityManager<AvatarEntity> _entityManager;
+        public AvatarRepository(IEntityManager<AvatarEntity> entityManager)
+        {
+            _entityManager = entityManager;
+        }
+        
         public async Task Create(AvatarEntity entity)
         {
-            throw new NotImplementedException();
+            await _entityManager.Upload(entity);
         }
 
         public async Task Update(AvatarEntity entity)
         {
-            throw new NotImplementedException();
+            await _entityManager.Upload(entity);
         }
 
         public async Task<AvatarEntity> Get(Guid id)
