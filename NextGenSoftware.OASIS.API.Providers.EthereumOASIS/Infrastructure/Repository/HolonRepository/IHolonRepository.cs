@@ -2,7 +2,7 @@
 
 namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repository.HolonRepository
 {
-    public interface IHolonRepository : IRepository<HolonEntity>, ISwarmRepository<HolonEntity>
+    public interface IHolonRepository : IRepository<HolonEntity>, IEntityRepository<HolonEntity>, ISwarmRepository<HolonEntity>
     {
         
     }

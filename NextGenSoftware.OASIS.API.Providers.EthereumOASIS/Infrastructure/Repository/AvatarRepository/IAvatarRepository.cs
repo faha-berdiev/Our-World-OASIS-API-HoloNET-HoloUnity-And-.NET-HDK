@@ -2,7 +2,7 @@
 
 namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repository.AvatarRepository
 {
-    public interface IAvatarRepository : IRepository<AvatarEntity>, ISwarmRepository<AvatarEntity>
+    public interface IAvatarRepository : IRepository<AvatarEntity>, IEntityRepository<AvatarEntity>, ISwarmRepository<AvatarEntity>
     {
         
     }

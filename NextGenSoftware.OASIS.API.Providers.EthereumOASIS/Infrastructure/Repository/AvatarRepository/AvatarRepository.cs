@@ -58,5 +58,15 @@ namespace NextGenSoftware.OASIS.API.Providers.EthereumOASIS.Infrastructure.Repos
         {
             throw new NotImplementedException();
         }
+
+        public async Task<AvatarEntity> Get(Func<AvatarEntity, bool> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<AvatarEntity>> GetAll(Func<AvatarEntity, bool> predicate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
