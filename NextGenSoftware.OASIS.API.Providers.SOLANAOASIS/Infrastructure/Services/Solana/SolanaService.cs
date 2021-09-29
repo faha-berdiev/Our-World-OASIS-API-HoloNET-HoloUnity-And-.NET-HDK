@@ -12,8 +12,11 @@ using Solnet.Extensions.TokenMint;
 using Solnet.Programs;
 using Solnet.Rpc;
 using Solnet.Rpc.Builders;
+using Solnet.Rpc.Models;
+using Solnet.Serum;
 using Solnet.Wallet;
 using Solnet.Wallet.Bip39;
+using ClientFactory = Solnet.Rpc.ClientFactory;
 
 namespace NextGenSoftware.OASIS.API.Providers.SOLANAOASIS.Infrastructure.Services.Solana
 {

@@ -30,6 +30,7 @@
         HoloWebOASIS,
         TRONOASIS,
         Neo4jOASIS,
+        SolanaOASIS,
         All,
         None,
         Default
