@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using NextGenSoftware.OASIS.API.Core.Exception;
 using NextGenSoftware.OASIS.API.Core.Helpers;
 
 namespace NextGenSoftware.OASIS.API.ONODE.WebAPI.Filters
@@ -10,26 +10,21 @@ namespace NextGenSoftware.OASIS.API.ONODE.WebAPI.Filters
     {
         public override Task OnExceptionAsync(ExceptionContext context)
         {
-            if (context.Exception.InnerException != null)
+            var exceptionResponse = new OASISResult<object>();
+            switch (context.Exception)
             {
-                var exceptionResponse = new OASISResult<object>()
-                {
-                    Exception = context.Exception,
-                    Message = context.Exception.Message,
-                    Result = null,
-                    IsError = true,
-                    IsSaved = false,
-                    IsWarning = false,
-                    InnerMessages = new List<string>()
-                    {
-                        context.Exception.InnerException.Message
-                    },
-                    MetaData = null
-                };
-                context.Result = new JsonResult(exceptionResponse);
-                ErrorHandling.HandleError(ref exceptionResponse, context.Exception.Message);
+                case ProviderMethodNotSupportedException methodNotSupported:
+                    exceptionResponse.Message = methodNotSupported.Message;
+                    exceptionResponse.IsWarning = true;
+                    exceptionResponse.IsError = false;
+                    break;
+                default:
+                    exceptionResponse.Message = context.Exception.Message;
+                    exceptionResponse.IsError = true;
+                    break;
             }
-
+            ErrorHandling.HandleError(ref exceptionResponse, context.Exception.Message);
+            context.Result = new JsonResult(exceptionResponse);
             context.HttpContext.Response.StatusCode = 500;
             return Task.CompletedTask;
         }
