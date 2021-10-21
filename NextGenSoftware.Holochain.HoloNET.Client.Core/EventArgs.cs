@@ -80,7 +80,6 @@ namespace NextGenSoftware.Holochain.HoloNET.Client.Core
             User
         }
 
-        //TODO: Check Signals Return Data And Add Properties Here
        public SignalTypes SignalType { get; set; }
        public string Name { get; set; }
        public JToken Arguments { get; set; }

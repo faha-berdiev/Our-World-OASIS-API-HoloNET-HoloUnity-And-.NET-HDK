@@ -19,6 +19,7 @@ using NextGenSoftware.OASIS.API.Core.Helpers;
 using Microsoft.Extensions.Configuration;
 using NextGenSoftware.OASIS.API.DNA;
 using System.Linq.Expressions;
+using NextGenSoftware.OASIS.API.Core.Exceptions;
 
 namespace NextGenSoftware.OASIS.API.Providers.IPFSOASIS
 {
@@ -72,17 +73,19 @@ namespace NextGenSoftware.OASIS.API.Providers.IPFSOASIS
             this.ProviderCategory = new EnumValue<ProviderCategory>(Core.Enums.ProviderCategory.StorageAndNetwork);
         }
 
-        public override void ActivateProvider()
+        public override OASISResult<bool> ActivateProvider()
         {
             IPFSClient = new IpfsClient(_OASISDNA.OASIS.StorageProviders.IPFSOASIS.ConnectionString);
             base.ActivateProvider();
+            return new OASISResult<bool>(true) { Message = "Activation Success"};
         }
 
-        public override void DeActivateProvider()
+        public override OASISResult<bool> DeActivateProvider()
         {
             IPFSClient.ShutdownAsync();
             IPFSClient = null;
             base.DeActivateProvider();
+            return new OASISResult<bool>(true) { Message = "Deactivation Success"};
         }
 
 
@@ -458,7 +461,7 @@ namespace NextGenSoftware.OASIS.API.Providers.IPFSOASIS
 
         public IEnumerable<IPlayer> GetPlayersNearMe()
         {
-            throw new NotImplementedException();
+            throw new ProviderMethodNotSupportedException(this.ProviderName, nameof(GetPlayersNearMe));
         }
 
         public override IEnumerable<IAvatar> LoadAllAvatars()

@@ -15,14 +15,16 @@ namespace NextGenSoftware.OASIS.API.Core
         public EnumValue<ProviderType> ProviderType { get; set; }
         public bool ProviderActivated { get; set; }
 
-        virtual public void ActivateProvider()
+        virtual public OASISResult<bool> ActivateProvider()
         {
             ProviderActivated = true;
+            return new OASISResult<bool>(ProviderActivated) {Message = "Provider Activated"};
         }
 
-        virtual public void DeActivateProvider()
+        virtual public OASISResult<bool> DeActivateProvider()
         {
             ProviderActivated = false;
+            return new OASISResult<bool>(ProviderActivated) {Message = "Provider Deactivated"};
         }
     }
 }
