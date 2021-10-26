@@ -7,6 +7,7 @@
   "AllowedHosts": "*",
 
   "OASIS": {
+    "Terms": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n",
     "Logging": {
       "LoggingFramework": "NLog"
     },
@@ -18,6 +19,7 @@
       "LogAllWarnings": "true"
     },
     "Security": {
+      "DoesAvatarNeedToBeVerifiedBeforeLogin": "true",
       "Secret": "",
       "AvatarPassword": {
         "BCryptEncryptionEnabled": "true",
@@ -44,9 +46,9 @@
       "AutoLoadBalanceEnabled": "true",
       "AutoLoadBalanceReadPollIntervalMins": "10",
       "AutoLoadBalanceWritePollIntervalMins": "10",
-      "AutoReplicationProviders": "MongoDBOASIS, SQLLiteDBOASIS, Neo4jOASIS, IPFSOASIS, HoloOASIS, TelosOASIS, EOSIOOASIS, EthereumOASIS, ThreeFoldOASIS",
-      "AutoFailOverProviders": "MongoDBOASIS, SQLLiteDBOASIS, Neo4jOASIS, IPFSOASIS, HoloOASIS, TelosOASIS, EOSIOOASIS, EthereumOASIS, ThreeFoldOASIS",
-      "AutoLoadBalanceProviders": "MongoDBOASIS, SQLLiteDBOASIS, Neo4jOASIS, IPFSOASIS, HoloOASIS, TelosOASIS, EOSIOOASIS, EthereumOASIS, ThreeFoldOASIS",
+      "AutoReplicationProviders": "MongoDBOASIS, SolanaOASIS, SQLLiteDBOASIS, Neo4jOASIS, IPFSOASIS, HoloOASIS, TelosOASIS, EOSIOOASIS, EthereumOASIS, ThreeFoldOASIS",
+      "AutoFailOverProviders": "MongoDBOASIS, SolanaOASIS, SQLLiteDBOASIS, Neo4jOASIS, IPFSOASIS, HoloOASIS, TelosOASIS, EOSIOOASIS, EthereumOASIS, ThreeFoldOASIS",
+      "AutoLoadBalanceProviders": "MongoDBOASIS, SolanaOASIS, SQLLiteDBOASIS, Neo4jOASIS, IPFSOASIS, HoloOASIS, TelosOASIS, EOSIOOASIS, EthereumOASIS, ThreeFoldOASIS",
 
       //Can be:
       //Cold (will only register and activate (connect, etc) each provider when you fist make a call into it - fastest initial OASIS boot but slowest initial call into each OASIS Provider as it is registered and activated. Has the smallest initial memory footprint.
@@ -74,6 +76,16 @@
       "TelosOASIS": {
         "ConnectionString": "https://node.hypha.earth"
       },
+      "SolanaOASIS": {
+        "WalletMnemonicWords": "pattern vessel trade prosper cube okay dust pet primary during captain endless",
+        "ConnectionString": ""
+      },
+      "CargoOASIS": {
+        "ConnectionString": "",
+        "SingingMessage": "",
+        "PrivateKey" : "",
+        "HostUrl": ""
+      },
       "SEEDSOASIS": {
         "ConnectionString": "https://node.hypha.earth"
       },
@@ -89,7 +101,8 @@
         "Password": ""
       },
       "IPFSOASIS": {
-        "ConnectionString": "http://localhost:5001"
+        "ConnectionString": "http://localhost:5001",
+        "LookUpIPFSAddress": ""
       }
     }
   }
