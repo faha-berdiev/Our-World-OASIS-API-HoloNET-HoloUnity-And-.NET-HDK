@@ -101,8 +101,7 @@
         "Password": ""
       },
       "IPFSOASIS": {
-        "ConnectionString": "http://localhost:5001",
-        "LookUpIPFSAddress": ""
+        "ConnectionString": "http://localhost:5001"
       }
     }
   }

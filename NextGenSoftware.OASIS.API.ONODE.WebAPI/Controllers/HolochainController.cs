@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using NextGenSoftware.OASIS.API.Core.Enums;
+using NextGenSoftware.OASIS.API.Core.Helpers;
 using NextGenSoftware.OASIS.API.Core.Interfaces;
 
 namespace NextGenSoftware.OASIS.API.ONODE.WebAPI.Controllers
@@ -21,9 +22,9 @@ namespace NextGenSoftware.OASIS.API.ONODE.WebAPI.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpGet("GetHolochainAgentIdForAvatar")]
-        public ActionResult<string> GetHolochainAgentIdForAvatar(Guid avatarId)
+        public OASISResult<string> GetHolochainAgentIdForAvatar(Guid avatarId)
         {
-            return Ok(Program.AvatarManager.GetProviderKeyForAvatar(avatarId, ProviderType.HoloOASIS));
+            return new(Program.AvatarManager.GetProviderKeyForAvatar(avatarId, ProviderType.HoloOASIS));
         }
 
         /// <summary>
@@ -33,34 +34,10 @@ namespace NextGenSoftware.OASIS.API.ONODE.WebAPI.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpGet("GetHolochainAgentPrivateKeyForAvatar")]
-        public ActionResult<string> GetHolochainAgentPrivateKeyForAvatar(Guid avatarId)
+        public OASISResult<string> GetHolochainAgentPrivateKeyForAvatar(Guid avatarId)
         {
-            return Ok(Program.AvatarManager.GetPrivateProviderKeyForAvatar(avatarId, ProviderType.HoloOASIS));
+            return new(Program.AvatarManager.GetPrivateProviderKeyForAvatar(avatarId, ProviderType.HoloOASIS));
         }
-
-        ///// <summary>
-        ///// Get's the EOSIO account.
-        ///// </summary>
-        ///// <param name="eosioAccountName"></param>
-        ///// <returns></returns>
-        //[Authorize]
-        //[HttpGet("GetEOSIOAccount")]
-        //public ActionResult<Account> GetEOSIOAccount(string eosioAccountName)
-        //{
-        //    return Ok(SEEDSOASIS.TelosOASIS.GetEOSIOAccount(eosioAccountName));
-        //}
-
-        ///// <summary>
-        ///// Get's the EOSIO account for the given Avatar.
-        ///// </summary>
-        ///// <param name="avatarId"></param>
-        ///// <returns></returns>
-        //[Authorize]
-        //[HttpGet("GetEOSIOAccountForAvatar")]
-        //public ActionResult<Account> GetEOSIOAccountForAvatar(Guid avatarId)
-        //{
-        //    return Ok(SEEDSOASIS.TelosOASIS.GetEOSIOAccountForAvatar(avatarId));
-        //}
 
         /// <summary>
         /// Get's the Avatar id for the the given EOS account name.
@@ -69,9 +46,9 @@ namespace NextGenSoftware.OASIS.API.ONODE.WebAPI.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpGet("GetAvatarIdForHolochainAgentId")]
-        public ActionResult<string> GetAvatarIdForHolochainAgentId(string agentId)
+        public OASISResult<string> GetAvatarIdForHolochainAgentId(string agentId)
         {
-            return Ok(Program.AvatarManager.GetAvatarIdForProviderKey(agentId, ProviderType.HoloOASIS));
+            return new(Program.AvatarManager.GetAvatarIdForProviderKey(agentId, ProviderType.HoloOASIS).ToString());
         }
 
         /// <summary>
@@ -81,9 +58,9 @@ namespace NextGenSoftware.OASIS.API.ONODE.WebAPI.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpGet("GetAvatarForHolochainAgentId")]
-        public ActionResult<IAvatar> GetAvatarForHolochainAgentId(string agentId)
+        public OASISResult<IAvatar> GetAvatarForHolochainAgentId(string agentId)
         {
-            return Ok(Program.AvatarManager.GetAvatarForProviderKey(agentId, ProviderType.HoloOASIS));
+            return new(Program.AvatarManager.GetAvatarForProviderKey(agentId, ProviderType.HoloOASIS));
         }
 
         /// <summary>
@@ -93,9 +70,9 @@ namespace NextGenSoftware.OASIS.API.ONODE.WebAPI.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpGet("GetHoloFuelBalanceForAgentId")]
-        public ActionResult<string> GetHoloFuelBalanceForAgentId(string agentID)
+        public OASISResult<string> GetHoloFuelBalanceForAgentId(string agentID)
         {
-            return Ok();
+            return new();
         }
 
         /// <summary>
@@ -105,9 +82,9 @@ namespace NextGenSoftware.OASIS.API.ONODE.WebAPI.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpGet("GetHoloFuelBalanceForAvatar")]
-        public ActionResult<string> GetHoloFuelBalanceForAvatar(Guid avatarId)
+        public OASISResult<string> GetHoloFuelBalanceForAvatar(Guid avatarId)
         {
-            return Ok();
+            return new();
         }
 
         /// <summary>
@@ -118,9 +95,9 @@ namespace NextGenSoftware.OASIS.API.ONODE.WebAPI.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpPost("{avatarId}/{holochainAgentId}")]
-        public IActionResult LinkHolochainAgentIdToAvatar(Guid avatarId, string holochainAgentId)
+        public OASISResult<IAvatarDetail> LinkHolochainAgentIdToAvatar(Guid avatarId, string holochainAgentId)
         {
-            return Ok(Program.AvatarManager.LinkProviderKeyToAvatar(avatarId, ProviderType.HoloOASIS, holochainAgentId));
+            return new(Program.AvatarManager.LinkProviderKeyToAvatar(avatarId, ProviderType.HoloOASIS, holochainAgentId));
         }
     }
 }

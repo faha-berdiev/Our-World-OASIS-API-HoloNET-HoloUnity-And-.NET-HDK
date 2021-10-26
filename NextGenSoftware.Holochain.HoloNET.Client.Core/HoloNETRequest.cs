@@ -1,9 +1,10 @@
-﻿
-using MessagePack;
+﻿using MessagePack;
+using System;
 
 namespace NextGenSoftware.Holochain.HoloNET.Client.Core
 {
     [MessagePackObject]
+    [Serializable]
     public class HoloNETRequest
     {
         [Key(0)]

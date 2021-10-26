@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NextGenSoftware.OASIS.API.Core.Helpers;
+using NextGenSoftware.OASIS.API.ONODE.WebAPI.Repositories;
 
 namespace NextGenSoftware.OASIS.API.ONODE.WebAPI.Controllers
 {
@@ -12,12 +14,12 @@ namespace NextGenSoftware.OASIS.API.ONODE.WebAPI.Controllers
     [EnableCors()]
     public class SCMSContracts : ControllerBase
     {
-        SCMSRepository _scmsRepository = new SCMSRepository();
+        SCMSRepository _scmsRepository = new();
 
         [HttpGet]
-        public async Task<IEnumerable<Contract>> GetAllContracts()
+        public async Task<OASISResult<IEnumerable<Contract>>> GetAllContracts()
         {
-            return await Task.Run(() => _scmsRepository.GetAllContracts());
+            return await _scmsRepository.GetAllContracts();
         }
     }
 }

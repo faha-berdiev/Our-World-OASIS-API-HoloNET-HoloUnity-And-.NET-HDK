@@ -1,5 +1,4 @@
 ﻿
-
 namespace NextGenSoftware.OASIS.API.DNA
 {
     public class OASISDNA
@@ -9,6 +8,9 @@ namespace NextGenSoftware.OASIS.API.DNA
 
     public class OASIS
     {
+        public string CurrentLiveVersion { get; set; }
+        public string CurrentStagingVersion { get; set; }
+        public string Terms { get; set; }
         public Logging Logging { get; set; }
         public ErrorHandlingSettings ErrorHandling { get; set; }
         public SecuritySettings Security { get; set; }
@@ -18,7 +20,9 @@ namespace NextGenSoftware.OASIS.API.DNA
 
     public class SecuritySettings
     {
+        public bool DoesAvatarNeedToBeVerifiedBeforeLogin { get; set; }
         public string Secret { get; set; }
+        public int RemoveOldRefreshTokensAfterXDays{ set; get;}
         public EncryptionSettings AvatarPassword { get; set; }
         public EncryptionSettings OASISProviderPrivateKeys { get; set; }
     }
@@ -65,6 +69,8 @@ namespace NextGenSoftware.OASIS.API.DNA
         public SQLLiteDBOASISSettings SQLLiteDBOASIS { get; set; }
         public IPFSOASISSettings IPFSOASIS { get; set; }
         public Neo4jOASISSettings Neo4jOASIS { get; set; }
+        public SolanaOASISSettings SolanaOASIS { get; set; }
+        public CargoOASISSettings CargoOASIS { get; set; }
     }
 
     public class EmailSettings
@@ -79,6 +85,18 @@ namespace NextGenSoftware.OASIS.API.DNA
     public class ProviderSettingsBase
     {
         public string ConnectionString { get; set; }
+    }
+    
+    public class CargoOASISSettings : ProviderSettingsBase
+    {
+        public string SingingMessage { get; set; }
+        public string PrivateKey { get; set; }
+        public string HostUrl { get; set; }
+    }
+    
+    public class SolanaOASISSettings : ProviderSettingsBase
+    {
+        public string WalletMnemonicWords { get; set; }
     }
 
     public class HoloOASISProviderSettings : ProviderSettingsBase
@@ -120,6 +138,7 @@ namespace NextGenSoftware.OASIS.API.DNA
 
     public class IPFSOASISSettings : ProviderSettingsBase
     {
+        public string LookUpIPFSAddress { get; set; }
     }
 
     public class Neo4jOASISSettings : ProviderSettingsBase

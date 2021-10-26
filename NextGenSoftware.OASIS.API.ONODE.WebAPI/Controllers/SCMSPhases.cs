@@ -4,23 +4,22 @@ using NextGenSoftware.OASIS.API.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NextGenSoftware.OASIS.API.Core.Helpers;
+using NextGenSoftware.OASIS.API.ONODE.WebAPI.Repositories;
 
 namespace NextGenSoftware.OASIS.API.ONODE.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
-    //[EnableCors(origins: "http://mywebclient.azurewebsites.net", headers: "*", methods: "*")]
-    [EnableCors()]
+    [EnableCors]
     public class SCMSPhases : ControllerBase
     {
-        SCMSRepository _scmsRepository = new SCMSRepository();
+        SCMSRepository _scmsRepository = new();
 
         [HttpGet]
-        public async Task<IEnumerable<Phase>> GetAllPhases()
+        public async Task<OASISResult<IEnumerable<Phase>>> GetAllPhases()
         {
-            var phases = await _scmsRepository.GetAllPhases();
-            return await Task.Run(() => phases.ToList());
+            return await _scmsRepository.GetAllPhases();
         }
     }
 }
