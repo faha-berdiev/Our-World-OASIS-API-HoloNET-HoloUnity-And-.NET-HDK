@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using NextGenSoftware.OASIS.API.Providers.CargoOASIS.Models.Cargo;
+using NextGenSoftware.OASIS.API.Providers.CargoOASIS.Core.Models.Cargo;
+using NextGenSoftware.OASIS.API.Providers.CargoOASIS.Models.Response;
 
-namespace NextGenSoftware.OASIS.API.Providers.CargoOASIS.Models.Response
+namespace NextGenSoftware.OASIS.API.Providers.CargoOASIS.Core.Models.Response
 {
     public class GetUserTokensByContractResponseModel
     {

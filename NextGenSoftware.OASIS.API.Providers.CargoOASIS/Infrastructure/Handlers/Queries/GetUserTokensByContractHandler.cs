@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NextGenSoftware.OASIS.API.Core.Helpers;
+using NextGenSoftware.OASIS.API.Providers.CargoOASIS.Core.Models.Response;
 using NextGenSoftware.OASIS.API.Providers.CargoOASIS.Enum;
 using NextGenSoftware.OASIS.API.Providers.CargoOASIS.Infrastructure.Builder;
 using NextGenSoftware.OASIS.API.Providers.CargoOASIS.Infrastructure.Interfaces;
