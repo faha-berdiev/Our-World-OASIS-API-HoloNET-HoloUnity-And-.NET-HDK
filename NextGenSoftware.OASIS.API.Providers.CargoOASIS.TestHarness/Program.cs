@@ -2,11 +2,11 @@
 
 namespace NextGenSoftware.OASIS.API.Providers.CargoOASIS.TestHarness
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Cargo TEST HARNESS");
         }
     }
 }
